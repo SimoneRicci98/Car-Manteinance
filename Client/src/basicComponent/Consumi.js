@@ -39,7 +39,7 @@ const Consumi = () =>{
 
     return(
         <>
-        <DivInserisciDati listaConsumi = {listaConsumi}/>
+        <DivInserisciDati listaConsumi={listaConsumi} kmTot={kmTot}/>
         <div className={"card m-3 text-center"}>
             <div className={"card-body row"}>
                 <div className={"col-sm-3 p-1"}>
@@ -95,10 +95,9 @@ const DivConsumo = (props) =>
     );
 }
 
-const DivInserisciDati = () =>{
+const DivInserisciDati = (props) =>{
     let data, km, litri, costo, commento;
-
-
+    const kmTot = props.kmTot;
     //media per ogni pieno ---> kmInseriti - kmTotali mi da quanti km ho percorso dal pieno precedente, diviso i litri caricati ho il consumo per il pieno
     return(
         <>
@@ -119,15 +118,16 @@ const DivInserisciDati = () =>{
                     <div className={"col-sm-3 text-center p-2"}>
                         <span>Commento:<br/><textarea cols="40" rows="3" className={"w-75"} onChange={(e)=>commento=e.target.value}></textarea></span>
                     </div>
-                    <div className={"col-sm-12 text-center m-2"}><button onClick={()=>addToDb(data, km, litri, costo, commento)} className={"btn btn-primary btn-lg"}>Inserisci</button></div>  
+                    <div className={"col-sm-12 text-center m-2"}><button onClick={()=>addToDb(data, km, litri, costo, commento, kmTot)} className={"btn btn-primary btn-lg"}>Inserisci</button></div>  
                 </div>
             </div>
         </>
         );
 }
 
-const addToDb = (data, km, litri, costo, commento) =>
+const addToDb = (data, km, litri, costo, commento, kmTot) =>
 {
+    let kmPercorsi = km - kmTot;
     if(data && km && litri && costo)
     {
         const table = "ram_tz";

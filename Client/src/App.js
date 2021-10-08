@@ -14,18 +14,25 @@ import Manutenzione from './basicComponent/Manutenzione';
 import Riepilogo from './basicComponent/Riepilogo';
 
 const App = () => {
+  //#region variabili
   const [isOpen, setIsOpen] = useState(false);
   const [div, setDiv] = useState(-1);
   const [car, setCar] = useState("");
+  //#endregion
+
+  //#region funzioni con useState
   const toggle = () => setIsOpen(!isOpen);
   const SwitchState = (numDiv) => {
     setDiv(numDiv);
-    toggle();
+    if(isOpen)
+      toggle();
   };
   const switchCar = (car) => {
     setCar(car);
     setDiv(0);
   };
+  //#endregion
+  
   return (
     <>
     <Navbar color="dark" dark style={{padding:"20px"}} expand="md">
